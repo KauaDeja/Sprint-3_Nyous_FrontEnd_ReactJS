@@ -5,6 +5,7 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Cadastrar from './pages/cadastrar';
 import NaoEncontrada from './pages/naoencontrada';
+import Eventos from './pages/eventos';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -12,7 +13,8 @@ import * as serviceWorker from './serviceWorker';
 // css do bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import das rotas
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import DashBoard from './pages/admin/dashboard';
 
 const routing = (
   // Por onde vai passar as chamadas
@@ -21,6 +23,8 @@ const routing = (
       <Route exact path = '/' component= {Home} />
       <Route path = '/login' component= {Login} />
       <Route path = '/cadastrar' component= {Cadastrar} />
+      <Route path = '/eventos' component={Eventos}/>
+      <Route path = '/admin/dashboard' component={DashBoard}/>
       <Route component={NaoEncontrada} />
 
     </Switch>
