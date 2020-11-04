@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import Menu from '../../../components/menu';
 import Rodape from '../../../components/rodape';
 
-const DashBoard = () => {
+
+const DashBoard = () => { 
 
     return (
         <div>

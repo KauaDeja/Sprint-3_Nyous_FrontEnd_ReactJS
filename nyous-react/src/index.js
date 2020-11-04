@@ -6,33 +6,57 @@ import Login from './pages/login';
 import Cadastrar from './pages/cadastrar';
 import NaoEncontrada from './pages/naoencontrada';
 import Eventos from './pages/eventos';
+import DashBoard from './pages/admin/dashboard';
+import CrudCategorias from './pages/admin/crudcategorias';
+import CrudEventos from './pages/admin/crudeventos';
 
-
+import jwt_decode from 'jwt-decode';
 import * as serviceWorker from './serviceWorker';
 
-// css do bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import das rotas
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import DashBoard from './pages/admin/dashboard';
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
+
+const RotaPrivada = ({component : Component, ...rest}) => (
+  <Route
+    {...rest}
+    render = {
+      props => 
+      localStorage.getItem('token-nyous-tarde') !== null ?
+        <Component {...props} /> :
+        <Redirect to={{pathname : '/login', state :{from : props.location}}} /> 
+    }
+  />
+);
+
+const RotaPrivadaAdmin = ({component : Component, ...rest}) => (
+  <Route
+    {...rest}
+    render = {
+      props => 
+      localStorage.getItem('token-nyous-tarde') !== null && jwt_decode(localStorage.getItem('token-nyous-tarde')).role === 'Admin' ?
+        <Component {...props} /> :
+        <Redirect to={{pathname : '/login', state :{from : props.location}}} /> 
+    }
+  />
+);
 
 const routing = (
-  // Por onde vai passar as chamadas
   <Router>
     <Switch>
-      <Route exact path = '/' component= {Home} />
-      <Route path = '/login' component= {Login} />
-      <Route path = '/cadastrar' component= {Cadastrar} />
-      <Route path = '/eventos' component={Eventos}/>
-      <Route path = '/admin/dashboard' component={DashBoard}/>
+      <Route exact path='/' component={Home} />
+      <Route path='/login' component={Login} />
+      <Route path='/cadastrar' component={Cadastrar} />
+      <RotaPrivada path='/eventos'  titulo="login" component={Eventos} />
+      <RotaPrivadaAdmin path='/admin/dashboard' component={DashBoard} />
+      <RotaPrivadaAdmin path='/admin/categorias' component={CrudCategorias} />
+      <RotaPrivadaAdmin path='/admin/eventos' component={CrudEventos} />
       <Route component={NaoEncontrada} />
-
     </Switch>
   </Router>
 )
 
 ReactDOM.render(
-  routing,  
+  routing,
   document.getElementById('root')
 );
 

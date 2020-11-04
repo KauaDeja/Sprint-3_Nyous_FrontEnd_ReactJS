@@ -10,7 +10,7 @@ const Cadastrar = () => {
         <div>
         <Menu />
         <Container className='form-height'>
-                <Form className='form-signin'>
+                <Form className='form-signin' >
                     <div className='text-center'>
                      <img src={logo} alt='NYOUS' style={{ width : '64px'}} />
                     </div>
@@ -31,7 +31,7 @@ const Cadastrar = () => {
                         <Form.Label>Senha</Form.Label>
                         <Form.Control type="password" placeholder="Senha"  required/>
                     </Form.Group>
-                    <Button variant="primary" type="submit" >
+                    <Button variant="primary" type="submit">
                         Enviar
                     </Button>
                     <br/><br/>
